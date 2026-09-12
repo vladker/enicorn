@@ -1,0 +1,308 @@
+{
+  "unicorn": [
+    {
+      "file": "unicorn/unicorn_0.png",
+      "w": 192,
+      "h": 194,
+      "area": 14069
+    },
+    {
+      "file": "unicorn/unicorn_1.png",
+      "w": 196,
+      "h": 188,
+      "area": 13483
+    },
+    {
+      "file": "unicorn/unicorn_2.png",
+      "w": 195,
+      "h": 194,
+      "area": 14795
+    },
+    {
+      "file": "unicorn/unicorn_3.png",
+      "w": 192,
+      "h": 190,
+      "area": 13548
+    },
+    {
+      "file": "unicorn/unicorn_4.png",
+      "w": 192,
+      "h": 194,
+      "area": 14102
+    },
+    {
+      "file": "unicorn/unicorn_5.png",
+      "w": 195,
+      "h": 188,
+      "area": 13473
+    },
+    {
+      "file": "unicorn/unicorn_6.png",
+      "w": 196,
+      "h": 193,
+      "area": 14759
+    },
+    {
+      "file": "unicorn/unicorn_7.png",
+      "w": 192,
+      "h": 191,
+      "area": 13524
+    }
+  ],
+  "candy": [
+    {
+      "file": "candy/candy_0.png",
+      "w": 60,
+      "h": 58,
+      "area": 2213
+    },
+    {
+      "file": "candy/candy_1.png",
+      "w": 59,
+      "h": 58,
+      "area": 2222
+    },
+    {
+      "file": "candy/candy_2.png",
+      "w": 60,
+      "h": 58,
+      "area": 2253
+    },
+    {
+      "file": "candy/candy_3.png",
+      "w": 59,
+      "h": 58,
+      "area": 2238
+    },
+    {
+      "file": "candy/candy_4.png",
+      "w": 59,
+      "h": 58,
+      "area": 2237
+    },
+    {
+      "file": "candy/candy_5.png",
+      "w": 60,
+      "h": 58,
+      "area": 2257
+    },
+    {
+      "file": "candy/candy_6.png",
+      "w": 57,
+      "h": 58,
+      "area": 2232
+    },
+    {
+      "file": "candy/candy_7.png",
+      "w": 60,
+      "h": 263,
+      "area": 8470
+    },
+    {
+      "file": "candy/candy_8.png",
+      "w": 55,
+      "h": 53,
+      "area": 1750
+    },
+    {
+      "file": "candy/candy_9.png",
+      "w": 61,
+      "h": 193,
+      "area": 6799
+    },
+    {
+      "file": "candy/candy_10.png",
+      "w": 58,
+      "h": 213,
+      "area": 6623
+    },
+    {
+      "file": "candy/candy_11.png",
+      "w": 47,
+      "h": 156,
+      "area": 4330
+    },
+    {
+      "file": "candy/candy_12.png",
+      "w": 47,
+      "h": 156,
+      "area": 4293
+    },
+    {
+      "file": "candy/candy_13.png",
+      "w": 47,
+      "h": 157,
+      "area": 4335
+    },
+    {
+      "file": "candy/candy_14.png",
+      "w": 43,
+      "h": 75,
+      "area": 1809
+    },
+    {
+      "file": "candy/candy_15.png",
+      "w": 47,
+      "h": 86,
+      "area": 2512
+    },
+    {
+      "file": "candy/candy_16.png",
+      "w": 48,
+      "h": 86,
+      "area": 2546
+    },
+    {
+      "file": "candy/candy_17.png",
+      "w": 47,
+      "h": 86,
+      "area": 2520
+    },
+    {
+      "file": "candy/candy_18.png",
+      "w": 48,
+      "h": 87,
+      "area": 2522
+    },
+    {
+      "file": "candy/candy_19.png",
+      "w": 48,
+      "h": 87,
+      "area": 2509
+    },
+    {
+      "file": "candy/candy_20.png",
+      "w": 65,
+      "h": 73,
+      "area": 2592
+    },
+    {
+      "file": "candy/candy_21.png",
+      "w": 65,
+      "h": 73,
+      "area": 2565
+    },
+    {
+      "file": "candy/candy_22.png",
+      "w": 64,
+      "h": 73,
+      "area": 2590
+    },
+    {
+      "file": "candy/candy_23.png",
+      "w": 64,
+      "h": 73,
+      "area": 2500
+    },
+    {
+      "file": "candy/candy_24.png",
+      "w": 64,
+      "h": 73,
+      "area": 2528
+    },
+    {
+      "file": "candy/candy_25.png",
+      "w": 64,
+      "h": 72,
+      "area": 2497
+    },
+    {
+      "file": "candy/candy_26.png",
+      "w": 65,
+      "h": 72,
+      "area": 2533
+    },
+    {
+      "file": "candy/candy_27.png",
+      "w": 52,
+      "h": 71,
+      "area": 1209
+    },
+    {
+      "file": "candy/candy_28.png",
+      "w": 48,
+      "h": 82,
+      "area": 1262
+    },
+    {
+      "file": "candy/candy_29.png",
+      "w": 53,
+      "h": 72,
+      "area": 1298
+    },
+    {
+      "file": "candy/candy_30.png",
+      "w": 150,
+      "h": 139,
+      "area": 8325
+    },
+    {
+      "file": "candy/candy_31.png",
+      "w": 73,
+      "h": 112,
+      "area": 4012
+    },
+    {
+      "file": "candy/candy_32.png",
+      "w": 50,
+      "h": 56,
+      "area": 1612
+    },
+    {
+      "file": "candy/candy_33.png",
+      "w": 51,
+      "h": 75,
+      "area": 1234
+    },
+    {
+      "file": "candy/candy_34.png",
+      "w": 46,
+      "h": 60,
+      "area": 1734
+    },
+    {
+      "file": "candy/candy_35.png",
+      "w": 60,
+      "h": 60,
+      "area": 2257
+    }
+  ],
+  "enemy": [
+    {
+      "file": "enemy/bomb_0.png",
+      "w": 471,
+      "h": 845,
+      "area": 206482
+    },
+    {
+      "file": "enemy/bomb_1.png",
+      "w": 515,
+      "h": 716,
+      "area": 192307
+    },
+    {
+      "file": "enemy/bomb_2.png",
+      "w": 211,
+      "h": 784,
+      "area": 64601
+    },
+    {
+      "file": "enemy/bomb_3.png",
+      "w": 288,
+      "h": 749,
+      "area": 145117
+    },
+    {
+      "file": "enemy/bomb_4.png",
+      "w": 646,
+      "h": 657,
+      "area": 223300
+    },
+    {
+      "file": "enemy/bomb_5.png",
+      "w": 433,
+      "h": 656,
+      "area": 46606
+    }
+  ]
+}
