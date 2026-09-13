@@ -36,6 +36,12 @@ func _build_ui() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(title)
 
+	var level := Label.new()
+	level.text = "Уровень: %s" % GameGlobals.get_level()["name"]
+	level.add_theme_font_size_override("font_size", 34)
+	level.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(level)
+
 	var score := Label.new()
 	score.text = "Ваш счёт: %d" % GameGlobals.last_score
 	score.add_theme_font_size_override("font_size", 54)

@@ -13,7 +13,7 @@ const BOMB_TARGET_MAX := 80.0
 # Collision radius as a fraction of the rendered max-dimension (0.4 => 80% of art radius).
 const HITBOX_FRACTION := 0.40
 
-func setup(tex: Texture2D, bomb: bool, spd: float, pts: int) -> void:
+func setup(tex: Texture2D, bomb: bool, spd: float, pts: int, size_scale: float = 1.0) -> void:
 	var sprite := $Sprite as Sprite2D
 	sprite.texture = tex
 	is_bomb = bomb
@@ -22,12 +22,15 @@ func setup(tex: Texture2D, bomb: bool, spd: float, pts: int) -> void:
 	_rotation_speed = randf_range(-1.4, 1.4)
 	var tex_max := maxf(tex.get_width(), tex.get_height())
 	var rendered_max := tex_max
+	var scale := Vector2.ONE
 	if bomb and tex_max > BOMB_TARGET_MAX:
 		var s := BOMB_TARGET_MAX / tex_max
-		sprite.scale = Vector2(s, s)
+		scale = Vector2(s, s)
 		rendered_max = BOMB_TARGET_MAX
+	scale *= size_scale
+	sprite.scale = scale
 	# Hitbox tracks the visible art (slightly smaller = fair, not hollow).
-	var r := maxf(20.0, rendered_max * HITBOX_FRACTION)
+	var r := maxf(20.0, rendered_max * HITBOX_FRACTION) * size_scale
 	var hitbox := $Hitbox as CollisionShape2D
 	if hitbox:
 		var cshape: CircleShape2D = hitbox.shape as CircleShape2D

@@ -48,13 +48,52 @@ func _build_ui() -> void:
 	best.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vbox.add_child(best)
 
-	var play := Button.new()
-	play.text = "ИГРАТЬ"
-	play.custom_minimum_size = Vector2(420, 120)
-	play.add_theme_font_size_override("font_size", 54)
-	vbox.add_child(play)
-	play.pressed.connect(_on_play_pressed)
+	var levels_title := Label.new()
+	levels_title.text = "ВЫБЕРИ УРОВЕНЬ"
+	levels_title.add_theme_font_size_override("font_size", 44)
+	levels_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(levels_title)
 
-func _on_play_pressed() -> void:
+	var levels_box := VBoxContainer.new()
+	levels_box.alignment = BoxContainer.ALIGNMENT_CENTER
+	levels_box.add_theme_constant_override("separation", 22)
+	vbox.add_child(levels_box)
+
+	for i in GameGlobals.LEVELS.size():
+		var lvl: Dictionary = GameGlobals.LEVELS[i]
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 14)
+		levels_box.add_child(row)
+
+		var btn := Button.new()
+		btn.text = "%d. %s\n%s" % [i + 1, lvl["name"], lvl["desc"]]
+		btn.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		btn.custom_minimum_size = Vector2(430, 120)
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.add_theme_font_size_override("font_size", 34)
+		row.add_child(btn)
+		btn.pressed.connect(_on_level_pressed.bind(i))
+
+		# Icon hint: how many bombs on this level (or a candy when there are none).
+		var icons_box := HBoxContainer.new()
+		icons_box.alignment = BoxContainer.ALIGNMENT_CENTER
+		icons_box.add_theme_constant_override("separation", 6)
+		row.add_child(icons_box)
+		for icon_name in lvl.get("icons", []):
+			icons_box.add_child(_make_icon(str(GameGlobals.ICON_TEXTURES.get(icon_name, ""))))
+
+func _make_icon(tex_path: String) -> TextureRect:
+	var icon := TextureRect.new()
+	icon.custom_minimum_size = Vector2(67, 67)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	if tex_path != "":
+		var tex := load(tex_path)
+		if tex is Texture2D:
+			icon.texture = tex
+	return icon
+
+func _on_level_pressed(idx: int) -> void:
+	GameGlobals.current_level = idx
 	AudioManager.play_sfx("res://assets/audio/sfx/click.wav")
 	get_tree().change_scene_to_file("res://scenes/game.tscn")

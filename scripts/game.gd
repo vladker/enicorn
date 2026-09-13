@@ -2,12 +2,23 @@ extends Node2D
 # Main gameplay: unicorn at the bottom catches falling candies, avoids bombs.
 # Builds its own scene tree (background, items, player, spawner, UI) in _ready().
 
-@export var bomb_chance := 0.15
 @export var base_spawn_interval := 0.8
 @export var max_lives := 3
 
+# One life is granted for every this many candies caught (capped at max_lives).
+const CANDIES_PER_LIFE := 10
+# The unicorn walks this many pixels higher than the base position (all levels).
+const PLAYER_Y_OFFSET := -200.0
+
+# Level config (filled from GameGlobals.get_level() in _ready).
+var _bomb_chance := 0.15
+var _candy_factor := 1.0
+var _candy_scale := 1.5
+var _level_name := ""
+
 var _score := 0
 var _lives := 3
+var _candies_caught := 0
 var _active := true
 var _paused := false
 
@@ -19,10 +30,12 @@ var _items_root: Node2D
 var _spawner: Timer
 var _score_label: Label
 var _lives_label: Label
+var _level_label: Label
 var _pause_button: Button
 var _ui_layer: CanvasLayer
 
 func _ready() -> void:
+	_load_level()
 	_load_textures()
 	_build_background()
 	_build_items_root()
@@ -32,6 +45,13 @@ func _ready() -> void:
 	_update_hud()
 	GameGlobals.load_best()
 	AudioManager.play_music("res://assets/audio/music/vivaldi_sonata_gm.mp3")
+
+func _load_level() -> void:
+	var lvl: Dictionary = GameGlobals.get_level()
+	_level_name = str(lvl.get("name", ""))
+	_bomb_chance = float(lvl.get("bomb_chance", 0.15))
+	_candy_factor = float(lvl.get("candy_factor", 1.0))
+	_candy_scale = float(lvl.get("candy_scale", 1.5))
 
 func _load_textures() -> void:
 	for i in 36:
@@ -66,7 +86,7 @@ func _build_player() -> void:
 	_player = scene.instantiate()
 	add_child(_player)
 	var vp := get_viewport_rect().size
-	_player.position = Vector2(vp.x / 2.0, vp.y - 220.0)
+	_player.position = Vector2(vp.x / 2.0, vp.y - 220.0 + PLAYER_Y_OFFSET)
 	_player.area_entered.connect(_on_player_area_entered)
 
 func _build_spawner() -> void:
@@ -99,6 +119,17 @@ func _build_ui() -> void:
 	_score_label.text = "Счёт: 0"
 	_score_label.add_theme_font_size_override("font_size", 46)
 	bar.add_child(_score_label)
+
+	_level_label = Label.new()
+	_level_label.text = _level_name
+	_level_label.add_theme_font_size_override("font_size", 28)
+	_level_label.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	_level_label.offset_left = 28.0
+	_level_label.offset_right = -28.0
+	_level_label.offset_top = 116.0
+	_level_label.offset_bottom = 156.0
+	_level_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	full.add_child(_level_label)
 
 	var sp1 := Control.new()
 	sp1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -139,17 +170,18 @@ func _spawn_item() -> void:
 	_items_root.add_child(item)
 
 	var vp := get_viewport_rect().size
-	var is_bomb := (randf() < bomb_chance and _bomb_tex.size() > 0)
+	var is_bomb := (randf() < _bomb_chance and _bomb_tex.size() > 0)
 
 	var tex: Texture2D
 	var pts := 10
 	if is_bomb:
 		tex = _bomb_tex[randi() % _bomb_tex.size()]
 		pts = 0
-	elif _candy_tex.size() > 0:
+	elif _candy_tex.size() > 0 and randf() < _candy_factor:
 		tex = _candy_tex[randi() % _candy_tex.size()]
 		pts = randi_range(5, 25)
 	else:
+		# Not a bomb and the candy slot was skipped (level candy factor).
 		item.queue_free()
 		return
 
@@ -157,7 +189,7 @@ func _spawn_item() -> void:
 	# Difficulty ramps up with score.
 	var difficulty := clampf(_score / 600.0, 0.0, 1.0)
 	var speed := lerpf(randf_range(240.0, 420.0), randf_range(380.0, 620.0), difficulty)
-	item.setup(tex, is_bomb, speed, pts)
+	item.setup(tex, is_bomb, speed, pts, _candy_scale)
 
 func _on_spawner_tick() -> void:
 	# Slightly speed up spawning as score grows.
@@ -180,6 +212,10 @@ func _on_player_area_entered(area: Area2D) -> void:
 	else:
 		AudioManager.play_sfx("res://assets/audio/sfx/catch.wav")
 		_score += int(area.points)
+		_candies_caught += 1
+		if _candies_caught % CANDIES_PER_LIFE == 0 and _lives < max_lives:
+			_lives += 1
+			_flash_screen(Color.GREEN, 0.25)
 		_on_spawner_tick()
 	area.on_caught()
 	_update_hud()

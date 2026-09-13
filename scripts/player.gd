@@ -52,12 +52,13 @@ func _process(delta: float) -> void:
 		_moving = true
 		_facing_right = dir > 0.0
 	elif _pointer_down and _pointer_x >= 0.0:
-		var diff := _pointer_x - position.x
-		if absf(diff) > 2.0:
+		# Follow the finger 1:1: the unicorn walks right under/behind the touch.
+		var target := _pointer_x
+		var diff := target - position.x
+		if absf(diff) > 0.5:
 			_moving = true
 			_facing_right = diff > 0.0
-			var step := minf(absf(diff), move_speed * delta)
-			position.x += signf(diff) * step
+			position.x = target
 		else:
 			_moving = false
 	else:
